@@ -1,5 +1,5 @@
 # ArmA3Scripting
-SQF
+
 YouTube Videos of my work:
 
 #1: https://youtu.be/DjCAyVqESY4
