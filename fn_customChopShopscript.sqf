@@ -11,6 +11,7 @@
 ["fnc_ChopReward", {
   private [ "_player", "_veh", "_vehpart", "_vehDamage", "_vehModels" "_fullReward", "_currentDamage" ];
   _veh = [ 0, objNull ];
+  if ( isNull _veh ) exitWith {};
   _player = [ 1, objNull ];
   _vehpart = [ "Engine", "Hull", "Fuel", "Transmission", "Wheel1", "Wheel2", "Wheel3", "Wheel4", "Glass1", "Glass2", "Glass3", "Glass4", "Glass5" ];
   _vehDamage = { _veh getHit _x } forEach _vehpart;
@@ -71,8 +72,18 @@
       //call Server_Core_ChangeVar;
   };
 
-  //the below function is also named different for each framework
-  [_veh] call Server_Chopshop_Storecar;
 
+  //the below is for the altis life framework (5.0)
+  if (life_HC_isActive) then {
+      [_player,_veh,_fullReward] remoteExecCall ["HC_fnc_chopShopSell",HC_Life];
+  } else {
+      [_player,_veh,_fullReward] remoteExecCall ["TON_fnc_chopShopSell",RSERV];
+  };
+
+  //the below function is also named different for each framework below is for modded
+  [_veh] call Server_Chopshop_Storecar;
+  
+  //final check if vehicle has been stored or not
+  if _veh !(isNull) exitWith {deleteVehicle _veh};
 };
 ];
