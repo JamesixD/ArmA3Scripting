@@ -65,6 +65,11 @@
 
   count _fullReward;
 
+/*
+or for simple chop shop script that decreases value based on overall damage do the following:
+_reward = 1 - damage _vehicle * _reward;
+*/
+
 //variables "owner" & "player" are different for each framework
   if (((_veh getVariable "owner") select 0) != (getPlayerUID _player)) then
   {
